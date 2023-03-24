@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductosService } from './productos/productos.service';
-import { ProductosController } from './productos/productos.controller';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ProductsModule } from './productos/productos.modules';
+import { ProductsModule } from './productos/productos.module';
 import { Product } from './productos/productos.entity';
+import { BrandsModule } from './brand/brand.module';
+import { Brand } from './brand/brand.entity';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -15,10 +15,10 @@ import { Product } from './productos/productos.entity';
     "username": "root",
     "password": "secret",
     "database": "store",
-    "entities": [Product],
+    "entities": [Product,Brand],
     "synchronize": true
-  }), ProductsModule],
-  controllers: [AppController],
-  providers: [AppService],
+  }), ProductsModule, BrandsModule],
+  controllers: [AppController,],
+  providers: [AppService,],
 })
 export class AppModule { }
