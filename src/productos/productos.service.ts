@@ -12,6 +12,7 @@ export class ProductosService {
 
     async findProduct(productId: string): Promise<Product> {
         return this.productsRepository.findOne({ where: { id: parseInt(productId) } })
+        // return this.productsRepository.findOne({where:{i}})
     }
     async createProduct(newProduct: any): Promise<Product> {
         return this.productsRepository.save(newProduct)
