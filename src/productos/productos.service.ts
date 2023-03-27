@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Product } from './productos.entity';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm'
+import { Brand } from 'src/brand/brand.entity';
 
 @Injectable()
 export class ProductosService {
@@ -22,9 +23,14 @@ export class ProductosService {
     }
 
     async updateProduct(productId: string, newProduct: any) {
-        // return `product ${productId} modified with ${newProduct}`
         let toUpdate = await this.productsRepository.findOne({ where: { id: parseInt(productId) } })
         let updated = Object.assign(toUpdate, newProduct);
         return this.productsRepository.save(updated)
+    }
+
+    async getProductsByBrand(brandId: string): Promise<any> {
+        // let newBrand: Brand
+        // return brandId
+        return await this.productsRepository.find({ where: { idmarca: brandId }, relations['idmarca']})
     }
 }

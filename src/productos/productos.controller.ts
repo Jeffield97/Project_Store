@@ -13,6 +13,12 @@ export class ProductosController {
     findProduct(@Param('productId') productId: string) {
         return this.productService.findProduct(productId);
     }
+
+    @Get('/brand/:brandId')
+    findProductByBrand(@Param('brandId') brandId:string)
+    {
+        return this.productService.getProductsByBrand(brandId)
+    }
     @Post()
     createProduct(@Body() body) {
         let newProduct: any = body;

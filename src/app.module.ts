@@ -11,6 +11,9 @@ import { SalesController } from './sales/sales.controller';
 import { ClientController } from './client/client.controller';
 import { ClientService } from './client/client.service';
 import { ClientsModule } from './client/client.module';
+import { Client } from './client/client.entity';
+import { Sale } from './sales/sales.entity';
+import { SalesModule } from './sales/sales.module';
 
 @Module({
   imports: [TypeOrmModule.forRoot({
@@ -20,9 +23,9 @@ import { ClientsModule } from './client/client.module';
     "username": "root",
     "password": "secret",
     "database": "store",
-    "entities": [Product,Brand],
+    "entities": [Product, Brand, Client, Sale],
     "synchronize": true
-  }), ProductsModule, BrandsModule,ClientsModule],
+  }), ProductsModule, BrandsModule, ClientsModule, SalesModule],
   controllers: [AppController,],
   providers: [AppService,],
 })

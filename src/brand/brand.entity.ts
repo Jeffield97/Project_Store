@@ -3,10 +3,12 @@ import { Entity, OneToMany, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOn
 @Entity()
 export class Brand {
     @PrimaryGeneratedColumn()
-    // @OneToMany(() => Product, (product) => product.marcaid)
     id: number
+    @OneToMany(() => Product, (product) => product.idmarca)
+    producto: Product[]
     @Column()
     nombre: string
     @Column('text')
     descripcion: string
+
 }
