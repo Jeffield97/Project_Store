@@ -29,10 +29,6 @@ export class ProductosService {
     }
 
     async getProductsByBrand(brandId: string): Promise<any> {
-        // let newBrand: Brand
-        // return brandId
-        return this.productsRepository.findOne({ where: { idmarca: true } })
-
-        // return await this.productsRepository.find({ where: { idmarca: brandId }, relations['idmarca']})
+        return this.productsRepository.find({ where: { idmarca: { id: parseInt(brandId) } } })
     }
 }

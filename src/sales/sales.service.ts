@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, getRepository, createConnection } from 'typeorm';
+import { Repository, getRepository, createConnection, And } from 'typeorm';
 import { Sale } from './sales.entity';
 
 @Injectable()
@@ -8,19 +8,33 @@ export class SalesService {
     constructor(@InjectRepository(Sale) private salesRepository: Repository<Sale>) { }
 
     async findAll(): Promise<Sale[]> {
-        return this.salesRepository.find()
+        return this.salesRepository.find({ relations: { idCliente: true } })
     }
     async createSale(newSale): Promise<Sale> {
         return this.salesRepository.save(newSale)
     }
     async findByDate(date): Promise<Sale> {
-        let res=null
+        let res = null
         createConnection().then(async conn => {
             const saleRepo = await conn.getRepository(Sale);
             const saleFirst = await saleRepo.createQueryBuilder('sale').where('sale.id=:id', { id: 1 }).getOne();
             res = saleFirst
         })
         return res
+    }
+    async findSalesByClientId(ciCliente): Promise<any> {
+        return this.salesRepository.find({ where: { idCliente: { ci: ciCliente } } })
+    }
+
+    async test(params): Promise<any> {
+        if (params.ci && params.idventa) {
+            console.log(params.ci)
+            return this.salesRepository.find({ where:{id:params.idventa, idCliente:{ci:params.ci}}, relations:{idProducto:true} })
+            // return this.salesRepository.find({ where: [{ id: params.idventa }, { idCliente: { ci: params.ci } }] })
+        }
+        else {
+            return this.salesRepository.find()
+        }
     }
 }
 
