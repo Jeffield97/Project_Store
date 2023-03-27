@@ -3,17 +3,17 @@ import { Product } from './productos.entity';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm'
 import { Brand } from 'src/brand/brand.entity';
+import { BrandService } from 'src/brand/brand.service';
 
 @Injectable()
 export class ProductosService {
-    constructor(@InjectRepository(Product) private productsRepository: Repository<Product>,) { }
+    constructor(@InjectRepository(Product) private productsRepository: Repository<Product>) { }
     async findAll(): Promise<Product[]> {
         return await this.productsRepository.find()
     }
 
     async findProduct(productId: string): Promise<Product> {
         return this.productsRepository.findOne({ where: { id: parseInt(productId) } })
-        // return this.productsRepository.findOne({where:{i}})
     }
     async createProduct(newProduct: any): Promise<Product> {
         return this.productsRepository.save(newProduct)
@@ -31,6 +31,8 @@ export class ProductosService {
     async getProductsByBrand(brandId: string): Promise<any> {
         // let newBrand: Brand
         // return brandId
-        return await this.productsRepository.find({ where: { idmarca: brandId }, relations['idmarca']})
+        return this.productsRepository.findOne({ where: { idmarca: true } })
+
+        // return await this.productsRepository.find({ where: { idmarca: brandId }, relations['idmarca']})
     }
 }
