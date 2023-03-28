@@ -1,4 +1,5 @@
 import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import { BrandDto } from './brand.dto';
 import { BrandService } from './brand.service';
 
 @Controller('brand')
@@ -13,9 +14,8 @@ export class BrandController {
         return this.brandService.findBrand(parseInt(brandId));
     }
     @Post()
-    createBrand(@Body() body) {
-        let newProduct: any = body;
-        return this.brandService.createBrand(newProduct)
+    createBrand(@Body() newBrand: BrandDto) {
+        return this.brandService.createBrand(newBrand)
     }
     @Delete(':brandId')
     deleteBrand(@Param('brandId') brandId: string) {
@@ -23,8 +23,7 @@ export class BrandController {
     }
 
     @Put(':brandId')
-    updateBrand(@Param('brandId') brandId: string, @Body() body) {
-        let newBrand: any = body
+    updateBrand(@Param('brandId') brandId: string, @Body() newBrand: BrandDto) {
         return this.brandService.updateBrand(parseInt(brandId), newBrand)
     }
 }

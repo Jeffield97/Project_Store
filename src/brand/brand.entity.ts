@@ -1,5 +1,5 @@
 import { Product } from "src/productos/productos.entity";
-import { Entity, OneToMany, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne } from "typeorm";
+import { Entity, OneToMany, PrimaryGeneratedColumn, Column } from "typeorm";
 @Entity()
 export class Brand {
     @PrimaryGeneratedColumn()

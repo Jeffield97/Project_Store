@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
+import { ClientDto } from './client.dto';
 import { ClientService } from './client.service';
 
 @Controller('client')
@@ -9,11 +10,12 @@ export class ClientController {
         return this.clientsService.findAll();
     }
     @Get(':clientId')
-    findClient(@Param('clientId') clientId: string) { return this.clientsService.findClient(clientId) }
+    findClient(@Param('clientId') clientId: string) {
+        return this.clientsService.findClient(clientId)
+    }
 
     @Post()
-    createClient(@Body() body) {
-        let newClient: any = body;
+    createClient(@Body() newClient: ClientDto) {
         return this.clientsService.createClient(newClient)
     }
 

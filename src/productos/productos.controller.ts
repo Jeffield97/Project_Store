@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { ProductoDto } from './productos.dto';
 import { ProductosService } from "./productos.service";
 
 @Controller('products')
@@ -20,8 +21,7 @@ export class ProductosController {
         return this.productService.getProductsByBrand(brandId)
     }
     @Post()
-    createProduct(@Body() body) {
-        let newProduct: any = body;
+    createProduct(@Body() newProduct:ProductoDto) {
         return this.productService.createProduct(newProduct)
     }
     @Delete(':productId')
@@ -30,8 +30,7 @@ export class ProductosController {
     }
 
     @Put(':productId')
-    updateProduct(@Param('productId') productId: string, @Body() body) {
-        let newProduct: any = body
+    updateProduct(@Param('productId') productId: string, @Body() newProduct:ProductoDto) {
         return this.productService.updateProduct(productId, newProduct)
     }
 

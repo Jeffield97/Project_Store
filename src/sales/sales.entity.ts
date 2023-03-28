@@ -11,13 +11,14 @@ export class Sale {
     idProducto: Product[]
 
     @ManyToOne(() => Client, (client) => client.id)
-    // @JoinColumn({ name: 'idCliente' })
     idCliente: Client
 
     @Column()
     fecha: Date
+
     @Column()
     cantidad: number
+    
     @Column()
     precio: number
 }
