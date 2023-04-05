@@ -10,18 +10,19 @@ import { ClientsModule } from './client/client.module';
 import { Client } from './client/client.entity';
 import { Sale } from './sales/sales.entity';
 import { SalesModule } from './sales/sales.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
+  imports: [ConfigModule.forRoot({envFilePath:['.env.development'],isGlobal:true}),TypeOrmModule.forRoot({
     "type": "mysql",
-    "host": "localhost",
+    "host": process.env.HOST,
     "port": 3306,
-    "username": "root",
-    "password": "secret",
-    "database": "store",
+    "username": process.env.USERNAME,
+    "password": process.env.PASSWORD,
+    "database": process.env.DB_NAME,
     "entities": [Product, Brand, Client, Sale],
     "synchronize": true
-  }), ProductsModule, BrandsModule, ClientsModule, SalesModule],
+  }), ProductsModule, BrandsModule, ClientsModule, SalesModule,],
   controllers: [AppController,],
   providers: [AppService,],
 })
